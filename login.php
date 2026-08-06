@@ -258,7 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <i class="fas fa-layer-group"></i>
             </div>
 
-            <h1>Controle total dos seus projetos de sistemas</h1>
+            <h1>Controle Projetos de Sistemas</h1>
 
             <p>
                 
@@ -339,7 +339,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
 
         <div class="login-footer">
-            &copy; <?= date('Y') ?> <?= APP_NAME ?> &mdash; Todos os direitos reservados
+            &copy; <?= date('Y') ?> <?= APP_NAME ?> &mdash; Desenvolvido por
+            <a href="https://aicode.dev.br" target="_blank" rel="noopener noreferrer"
+               style="color:#0d6efd;text-decoration:none;font-weight:600">AiCode</a> - AiCode
         </div>
         </div><!-- max-width wrapper -->
     </div>
