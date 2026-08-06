@@ -25,6 +25,9 @@
         <a href="<?= BASE_PATH ?>/ias/index.php" class="sidebar-link <?= $menu_ativo === 'ias' ? 'active' : '' ?>">
             <i class="fas fa-brain"></i> Minhas IAs
         </a>
+        <a href="<?= BASE_PATH ?>/cursos/index.php" class="sidebar-link <?= $menu_ativo === 'cursos' ? 'active' : '' ?>">
+            <i class="fas fa-graduation-cap"></i> Meus Cursos
+        </a>
         <a href="<?= BASE_PATH ?>/links/index.php" class="sidebar-link <?= $menu_ativo === 'links' ? 'active' : '' ?>">
             <i class="fas fa-bookmark"></i> Meus Links
         </a>
