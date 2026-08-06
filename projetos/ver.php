@@ -128,6 +128,44 @@ include __DIR__ . '/../includes/header.php';
                     <?php endforeach; ?>
                 </div>
                 <?php endif; ?>
+
+                <?php if (!empty($projeto['acesso_login'])): ?>
+                <hr>
+                <div class="d-flex align-items-center gap-1 mb-2">
+                    <i class="fas fa-key small text-warning"></i>
+                    <span class="fw-semibold small">Acesso ao sistema</span>
+                </div>
+                <div class="db-info small">
+                    <?php
+                    $acesso_campos = [
+                        'Login' => $projeto['acesso_login'] ?? '',
+                        'Senha' => $projeto['acesso_senha'] ?? '',
+                    ];
+                    foreach ($acesso_campos as $label => $valor): if (!$valor) continue;
+                        $eid = 'ac_' . strtolower($label); ?>
+                    <div class="d-flex align-items-center justify-content-between py-1 border-bottom">
+                        <span class="text-muted me-2" style="min-width:52px"><?= $label ?></span>
+                        <span class="font-monospace flex-grow-1"
+                              style="<?= $label === 'Senha' ? 'filter:blur(4px);user-select:none' : '' ?>"
+                              id="<?= $eid ?>">
+                            <?= sanitize($valor) ?>
+                        </span>
+                        <?php if ($label === 'Senha'): ?>
+                        <button type="button" class="btn btn-sm p-0 ms-1 border-0 bg-transparent text-muted"
+                                onclick="var el=document.getElementById('<?= $eid ?>');el.style.filter=el.style.filter?'':'blur(4px)'"
+                                title="Mostrar/ocultar">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <?php endif; ?>
+                        <button type="button" class="btn btn-sm p-0 ms-1 border-0 bg-transparent text-muted"
+                                onclick="navigator.clipboard.writeText('<?= addslashes(sanitize($valor)) ?>');this.innerHTML='<i class=\'fas fa-check text-success\'></i>';setTimeout(()=>this.innerHTML='<i class=\'fas fa-copy\'></i>',1500)"
+                                title="Copiar">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
