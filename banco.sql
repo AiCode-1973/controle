@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `projetos` (
     `cliente_id` INT,
     `nome` VARCHAR(150) NOT NULL,
     `descricao` TEXT,
+    `url_projeto` VARCHAR(500),
     `status` ENUM('em_andamento','concluido','pausado','cancelado') DEFAULT 'em_andamento',
     `valor_total` DECIMAL(10,2) DEFAULT 0.00,
     `valor_pago` DECIMAL(10,2) DEFAULT 0.00,

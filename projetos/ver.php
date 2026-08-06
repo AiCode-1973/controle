@@ -41,6 +41,13 @@ include __DIR__ . '/../includes/header.php';
     <div>
         <h4 class="mb-1"><?= sanitize($projeto['nome']) ?></h4>
         <span class="text-muted">Cliente: <?= sanitize($projeto['cliente_nome'] ?? '—') ?></span>
+        <?php if (!empty($projeto['url_projeto'])): ?>
+        <a href="<?= sanitize($projeto['url_projeto']) ?>" target="_blank" rel="noopener noreferrer"
+           class="d-inline-flex align-items-center gap-1 ms-2 text-decoration-none small"
+           style="color:var(--blue-500)">
+            <i class="fas fa-globe"></i> <?= sanitize($projeto['url_projeto']) ?>
+        </a>
+        <?php endif; ?>
     </div>
     <div class="d-flex align-items-center gap-2">
         <?= statusLabel($projeto['status']) ?>

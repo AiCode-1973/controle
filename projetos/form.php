@@ -11,6 +11,7 @@ $dados = [
     'cliente_id'     => '',
     'nome'           => '',
     'descricao'      => '',
+    'url_projeto'    => '',
     'status'         => 'em_andamento',
     'valor_total'    => '',
     'valor_pago'     => '',
@@ -38,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'cliente_id'     => (int)($_POST['cliente_id'] ?? 0) ?: null,
         'nome'           => trim($_POST['nome'] ?? ''),
         'descricao'      => trim($_POST['descricao'] ?? ''),
+        'url_projeto'    => trim($_POST['url_projeto'] ?? ''),
         'status'         => in_array($_POST['status'] ?? '', ['em_andamento','concluido','pausado','cancelado'], true)
                                 ? $_POST['status'] : 'em_andamento',
         'valor_total'    => (float)str_replace(',', '.', $_POST['valor_total'] ?? '0'),
@@ -50,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($dados['nome'] === '') $erros[] = 'Nome é obrigatório.';
 
     if (empty($erros)) {
-        $cols = ['cliente_id','nome','descricao','status','valor_total','valor_pago',
+        $cols = ['cliente_id','nome','descricao','url_projeto','status','valor_total','valor_pago',
                  'data_inicio','data_previsao','data_conclusao'];
         $vals = array_map(fn($c) => $dados[$c], $cols);
 
@@ -129,6 +131,14 @@ include __DIR__ . '/../includes/header.php';
                     <label class="form-label">Data de conclusão</label>
                     <input type="date" name="data_conclusao" class="form-control"
                            value="<?= sanitize((string)($dados['data_conclusao'] ?? '')) ?>">
+                </div>
+                <div class="col-12">
+                    <label class="form-label">URL do projeto</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-globe"></i></span>
+                        <input type="url" name="url_projeto" class="form-control"
+                               placeholder="https://" value="<?= sanitize((string)($dados['url_projeto'] ?? '')) ?>">
+                    </div>
                 </div>
                 <div class="col-12">
                     <label class="form-label">Descrição</label>
