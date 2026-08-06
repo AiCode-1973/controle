@@ -12,6 +12,10 @@ $dados = [
     'nome'           => '',
     'descricao'      => '',
     'url_projeto'    => '',
+    'db_host'        => '',
+    'db_usuario'     => '',
+    'db_nome'        => '',
+    'db_senha'       => '',
     'status'         => 'em_andamento',
     'valor_total'    => '',
     'valor_pago'     => '',
@@ -40,6 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'nome'           => trim($_POST['nome'] ?? ''),
         'descricao'      => trim($_POST['descricao'] ?? ''),
         'url_projeto'    => trim($_POST['url_projeto'] ?? ''),
+        'db_host'        => trim($_POST['db_host'] ?? ''),
+        'db_usuario'     => trim($_POST['db_usuario'] ?? ''),
+        'db_nome'        => trim($_POST['db_nome'] ?? ''),
+        'db_senha'       => trim($_POST['db_senha'] ?? ''),
         'status'         => in_array($_POST['status'] ?? '', ['em_andamento','concluido','pausado','cancelado'], true)
                                 ? $_POST['status'] : 'em_andamento',
         'valor_total'    => (float)str_replace(',', '.', $_POST['valor_total'] ?? '0'),
@@ -52,7 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($dados['nome'] === '') $erros[] = 'Nome é obrigatório.';
 
     if (empty($erros)) {
-        $cols = ['cliente_id','nome','descricao','url_projeto','status','valor_total','valor_pago',
+        $cols = ['cliente_id','nome','descricao','url_projeto',
+                 'db_host','db_usuario','db_nome','db_senha',
+                 'status','valor_total','valor_pago',
                  'data_inicio','data_previsao','data_conclusao'];
         $vals = array_map(fn($c) => $dados[$c], $cols);
 
@@ -138,6 +148,46 @@ include __DIR__ . '/../includes/header.php';
                         <span class="input-group-text"><i class="fas fa-globe"></i></span>
                         <input type="url" name="url_projeto" class="form-control"
                                placeholder="https://" value="<?= sanitize((string)($dados['url_projeto'] ?? '')) ?>">
+                    </div>
+                </div>
+
+                <!-- Conexão MySQL -->
+                <div class="col-12 mt-1">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="fas fa-database text-primary"></i>
+                        <span class="fw-semibold" style="font-size:.82rem">Conexão MySQL do projeto</span>
+                        <hr class="flex-grow-1 my-0">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Host</label>
+                    <input type="text" name="db_host" class="form-control"
+                           placeholder="ex: 186.209.113.107"
+                           value="<?= sanitize((string)($dados['db_host'] ?? '')) ?>">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Banco de dados</label>
+                    <input type="text" name="db_nome" class="form-control"
+                           placeholder="nome_do_banco"
+                           value="<?= sanitize((string)($dados['db_nome'] ?? '')) ?>">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Usuário</label>
+                    <input type="text" name="db_usuario" class="form-control"
+                           placeholder="usuario_mysql"
+                           value="<?= sanitize((string)($dados['db_usuario'] ?? '')) ?>"
+                           autocomplete="off">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Senha</label>
+                    <div class="input-group">
+                        <input type="password" name="db_senha" id="db_senha" class="form-control"
+                               value="<?= sanitize((string)($dados['db_senha'] ?? '')) ?>"
+                               autocomplete="new-password">
+                        <button type="button" class="btn btn-outline-secondary"
+                                onclick="var i=document.getElementById('db_senha');i.type=i.type==='password'?'text':'password'">
+                            <i class="fas fa-eye"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="col-12">
