@@ -6,7 +6,7 @@ $id         = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $titulo     = $id ? 'Editar IA' : 'Adicionar IA';
 $menu_ativo = 'ias';
 $erros      = [];
-$dados      = ['nome' => '', 'url' => '', 'descricao' => '', 'categoria' => 'chat', 'marca' => 'outro', 'plano' => 'freemium', 'favorito' => 0];
+$dados = ['nome' => '', 'url' => '', 'descricao' => '', 'categoria' => 'chat', 'marca' => 'outro', 'plano' => 'freemium', 'acesso_login' => '', 'acesso_senha' => '', 'favorito' => 0];
 
 if ($id) {
     $stmt = $pdo->prepare('SELECT * FROM ias WHERE id = ?');
@@ -44,6 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'categoria' => in_array($_POST['categoria'] ?? '', $validas_cat,   true) ? $_POST['categoria'] : 'chat',
         'marca'     => in_array($_POST['marca']     ?? '', $validas_marca, true) ? $_POST['marca']     : 'outro',
         'plano'     => in_array($_POST['plano']     ?? '', $validas_plano, true) ? $_POST['plano']     : 'freemium',
+        'acesso_login' => trim($_POST['acesso_login'] ?? ''),
+        'acesso_senha' => trim($_POST['acesso_senha'] ?? ''),
         'favorito'  => isset($_POST['favorito']) ? 1 : 0,
     ];
 
@@ -52,11 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($erros)) {
         if ($id) {
-            $pdo->prepare('UPDATE ias SET nome=?,url=?,descricao=?,categoria=?,marca=?,plano=?,favorito=? WHERE id=?')
-                ->execute([$dados['nome'],$dados['url'],$dados['descricao'],$dados['categoria'],$dados['marca'],$dados['plano'],$dados['favorito'],$id]);
+            $pdo->prepare('UPDATE ias SET nome=?,url=?,descricao=?,categoria=?,marca=?,plano=?,acesso_login=?,acesso_senha=?,favorito=? WHERE id=?')
+                ->execute([$dados['nome'],$dados['url'],$dados['descricao'],$dados['categoria'],$dados['marca'],$dados['plano'],$dados['acesso_login'],$dados['acesso_senha'],$dados['favorito'],$id]);
         } else {
-            $pdo->prepare('INSERT INTO ias (nome,url,descricao,categoria,marca,plano,favorito) VALUES (?,?,?,?,?,?,?)')
-                ->execute([$dados['nome'],$dados['url'],$dados['descricao'],$dados['categoria'],$dados['marca'],$dados['plano'],$dados['favorito']]);
+            $pdo->prepare('INSERT INTO ias (nome,url,descricao,categoria,marca,plano,acesso_login,acesso_senha,favorito) VALUES (?,?,?,?,?,?,?,?,?)')
+                ->execute([$dados['nome'],$dados['url'],$dados['descricao'],$dados['categoria'],$dados['marca'],$dados['plano'],$dados['acesso_login'],$dados['acesso_senha'],$dados['favorito']]);
         }
         flash('success', 'IA salva!');
         redirect('/ias/index.php');
@@ -143,6 +145,35 @@ include __DIR__ . '/../includes/header.php';
                 <input type="text" name="descricao" class="form-control"
                        value="<?= sanitize((string)$dados['descricao']) ?>"
                        placeholder="Para que você usa esta IA?">
+            </div>
+
+            <!-- Acesso -->
+            <div class="col-12 mb-3">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <i class="fas fa-key text-warning"></i>
+                    <span class="fw-semibold" style="font-size:.82rem">Acesso</span>
+                    <hr class="flex-grow-1 my-0">
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-6">
+                        <label class="form-label">Login / E-mail</label>
+                        <input type="text" name="acesso_login" class="form-control"
+                               value="<?= sanitize((string)($dados['acesso_login'] ?? '')) ?>"
+                               placeholder="e-mail ou usuário" autocomplete="off">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Senha</label>
+                        <div class="input-group">
+                            <input type="password" name="acesso_senha" id="ia_senha" class="form-control"
+                                   value="<?= sanitize((string)($dados['acesso_senha'] ?? '')) ?>"
+                                   autocomplete="new-password">
+                            <button type="button" class="btn btn-outline-secondary"
+                                    onclick="var i=document.getElementById('ia_senha');i.type=i.type==='password'?'text':'password'">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="mb-4">

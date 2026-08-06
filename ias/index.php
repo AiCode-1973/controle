@@ -141,6 +141,38 @@ include __DIR__ . '/../includes/header.php';
                 <div class="mt-2 text-truncate" style="font-size:.72rem;color:var(--text-3)">
                     <i class="fas fa-link me-1"></i><?= sanitize($ia['url']) ?>
                 </div>
+
+                <?php if (!empty($ia['acesso_login'])): ?>
+                <div class="mt-2 pt-2 border-top">
+                    <div class="small fw-semibold text-muted mb-1">
+                        <i class="fas fa-key me-1 text-warning"></i>Acesso
+                    </div>
+                    <?php
+                    $ac = [
+                        'Login' => $ia['acesso_login'] ?? '',
+                        'Senha' => $ia['acesso_senha'] ?? '',
+                    ];
+                    foreach ($ac as $label => $valor): if (!$valor) continue;
+                        $eid = 'ia_' . $ia['id'] . '_' . strtolower($label); ?>
+                    <div class="d-flex align-items-center justify-content-between py-1" style="font-size:.76rem">
+                        <span class="text-muted me-2" style="min-width:40px"><?= $label ?></span>
+                        <span class="font-monospace flex-grow-1"
+                              id="<?= $eid ?>"
+                              style="<?= $label === 'Senha' ? 'filter:blur(4px);user-select:none' : '' ?>">
+                            <?= sanitize($valor) ?>
+                        </span>
+                        <?php if ($label === 'Senha'): ?>
+                        <button type="button" class="btn btn-sm p-0 ms-1 border-0 bg-transparent text-muted"
+                                onclick="var e=document.getElementById('<?= $eid ?>');e.style.filter=e.style.filter?'':'blur(4px)'"
+                                title="Mostrar/ocultar"><i class="fas fa-eye"></i></button>
+                        <?php endif; ?>
+                        <button type="button" class="btn btn-sm p-0 ms-1 border-0 bg-transparent text-muted"
+                                onclick="navigator.clipboard.writeText('<?= addslashes(sanitize($valor)) ?>');this.innerHTML='<i class=\'fas fa-check text-success\'></i>';setTimeout(()=>this.innerHTML='<i class=\'fas fa-copy\'></i>',1500)"
+                                title="Copiar"><i class="fas fa-copy"></i></button>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php endif; ?>
             </div>
 
             <div class="card-footer d-flex gap-2 py-2">
