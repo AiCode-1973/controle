@@ -19,6 +19,9 @@
         <a href="<?= BASE_PATH ?>/financeiro/index.php" class="sidebar-link <?= $menu_ativo === 'financeiro' ? 'active' : '' ?>">
             <i class="fas fa-wallet"></i> Financeiro
         </a>
+        <a href="<?= BASE_PATH ?>/prompts/index.php" class="sidebar-link <?= $menu_ativo === 'prompts' ? 'active' : '' ?>">
+            <i class="fas fa-robot"></i> Prompts
+        </a>
 
         <div class="sidebar-separator"></div>
         <div class="sidebar-section-label">Configurações</div>
