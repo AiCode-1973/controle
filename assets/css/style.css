@@ -9,6 +9,7 @@
     min-width: 230px;
     transition: margin 0.25s ease-out;
     flex-shrink: 0;
+    background: linear-gradient(180deg, #061f4a 0%, #0a3d8f 100%);
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -18,12 +19,20 @@
 #page-content-wrapper {
     min-width: 0;
     flex: 1;
+    background: #f4f6fb;
+}
+
+/* ========== Navbar (topbar) ========== */
+.navbar.bg-white {
+    background: #fff !important;
+    box-shadow: 0 1px 4px rgba(6, 31, 74, 0.08);
 }
 
 /* ========== Sidebar ========== */
 .sidebar-heading {
     font-size: 0.88rem;
     letter-spacing: 0.4px;
+    border-color: rgba(255,255,255,0.1) !important;
 }
 
 .sidebar-link {
@@ -48,23 +57,27 @@
 }
 
 .sidebar-link.active {
-    background: #0d6efd;
+    background: rgba(255, 255, 255, 0.15);
     color: #fff;
+    border-left: 3px solid #4d9fff;
+    padding-left: calc(1.25rem - 3px);
 }
 
 /* ========== Cards & Tables ========== */
 .card {
-    border: 1px solid #e9ecef;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e4eaf4;
+    border-radius: 0.6rem;
+    box-shadow: 0 1px 6px rgba(6, 31, 74, 0.06);
+    background: #fff;
 }
 
 .card-header {
     background: #fff;
-    border-bottom: 1px solid #e9ecef;
+    border-bottom: 1px solid #e4eaf4;
     font-weight: 600;
     font-size: 0.88rem;
     padding: 0.75rem 1rem;
+    color: #0a3d8f;
 }
 
 .table th {
@@ -73,6 +86,17 @@
     text-transform: uppercase;
     letter-spacing: 0.4px;
     color: #6c757d;
+}
+
+/* ========== Buttons ========== */
+.btn-primary {
+    background: linear-gradient(135deg, #0d6efd, #0a3d8f);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0b5ed7, #083278);
+    border: none;
 }
 
 .sidebar-separator {
