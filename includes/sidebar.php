@@ -17,5 +17,12 @@
         <a href="<?= BASE_PATH ?>/financeiro/index.php" class="sidebar-link <?= $menu_ativo === 'financeiro' ? 'active' : '' ?>">
             <i class="fas fa-dollar-sign"></i> Financeiro
         </a>
+        <div class="sidebar-separator"></div>
+        <a href="<?= BASE_PATH ?>/usuarios/index.php" class="sidebar-link <?= $menu_ativo === 'usuarios' ? 'active' : '' ?>">
+            <i class="fas fa-user-cog"></i> Usuários
+        </a>
+        <a href="<?= BASE_PATH ?>/perfil.php" class="sidebar-link <?= $menu_ativo === 'perfil' ? 'active' : '' ?>">
+            <i class="fas fa-user-circle"></i> Meu perfil
+        </a>
     </nav>
 </div>

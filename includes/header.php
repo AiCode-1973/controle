@@ -1,6 +1,13 @@
 <?php
 $titulo     = $titulo ?? APP_NAME;
 $menu_ativo = $menu_ativo ?? '';
+
+$overdue_count = 0;
+if (isset($pdo)) {
+    $overdue_count = (int)$pdo->query(
+        "SELECT COUNT(*) FROM tarefas WHERE data_prazo < CURDATE() AND status != 'concluida'"
+    )->fetchColumn();
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -22,6 +29,14 @@ $menu_ativo = $menu_ativo ?? '';
             </button>
             <span class="fw-semibold"><?= sanitize($titulo) ?></span>
             <div class="ms-auto d-flex align-items-center gap-2">
+                <?php if ($overdue_count > 0): ?>
+                <a href="<?= BASE_PATH ?>/" class="btn btn-sm btn-warning position-relative me-1"
+                   title="<?= $overdue_count ?> tarefa(s) com prazo vencido">
+                    <i class="fas fa-bell"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                          style="font-size:0.6rem"><?= $overdue_count ?></span>
+                </a>
+                <?php endif; ?>
                 <span class="text-muted small d-none d-md-inline">
                     <i class="fas fa-user me-1"></i><?= sanitize($_SESSION['usuario_nome'] ?? '') ?>
                 </span>

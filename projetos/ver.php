@@ -30,6 +30,11 @@ $anotacoes = $pdo->prepare('SELECT * FROM anotacoes WHERE projeto_id = ? ORDER B
 $anotacoes->execute([$id]);
 $anotacoes = $anotacoes->fetchAll();
 
+$horas_stmt = $pdo->prepare('SELECT * FROM horas WHERE projeto_id = ? ORDER BY data DESC');
+$horas_stmt->execute([$id]);
+$horas_lista = $horas_stmt->fetchAll();
+$total_horas = array_sum(array_column($horas_lista, 'quantidade'));
+
 include __DIR__ . '/../includes/header.php';
 ?>
 <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-2">
@@ -41,6 +46,9 @@ include __DIR__ . '/../includes/header.php';
         <?= statusLabel($projeto['status']) ?>
         <a href="form.php?id=<?= $id ?>" class="btn btn-sm btn-outline-secondary">
             <i class="fas fa-edit me-1"></i>Editar
+        </a>
+        <a href="relatorio.php?id=<?= $id ?>" class="btn btn-sm btn-outline-info" target="_blank">
+            <i class="fas fa-file-alt me-1"></i>Relatório
         </a>
         <a href="index.php" class="btn btn-sm btn-outline-secondary">
             <i class="fas fa-arrow-left me-1"></i>Voltar
@@ -250,6 +258,95 @@ include __DIR__ . '/../includes/header.php';
                     <p class="text-center text-muted small mb-0">Nenhuma anotação.</p>
                     <?php endif; ?>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row g-3 mt-0">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fas fa-clock me-1"></i>Horas trabalhadas
+                    <span class="badge bg-primary ms-1"><?= number_format($total_horas, 1, ',', '') ?>h total</span>
+                </span>
+                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#formHoras">
+                    <i class="fas fa-plus me-1"></i>Registrar
+                </button>
+            </div>
+            <div class="collapse" id="formHoras">
+                <div class="p-3 border-bottom bg-light">
+                    <form method="post" action="<?= BASE_PATH ?>/horas/form.php">
+                        <input type="hidden" name="csrf_token" value="<?= csrfToken() ?>">
+                        <input type="hidden" name="projeto_id" value="<?= $id ?>">
+                        <div class="row g-2 align-items-end">
+                            <div class="col-md-5">
+                                <label class="form-label form-label-sm mb-1">Descrição *</label>
+                                <input type="text" name="descricao" class="form-control form-control-sm"
+                                       placeholder="Atividade realizada" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label form-label-sm mb-1">Data</label>
+                                <input type="date" name="data" class="form-control form-control-sm"
+                                       value="<?= date('Y-m-d') ?>" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label form-label-sm mb-1">Horas</label>
+                                <input type="number" name="quantidade" class="form-control form-control-sm"
+                                       placeholder="Ex: 2.5" step="0.5" min="0.5" required>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-sm btn-primary w-100">Salvar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 small">
+                    <thead class="table-light">
+                        <tr><th>Data</th><th>Descrição</th><th>Horas</th><th></th></tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($horas_lista as $h): ?>
+                        <tr>
+                            <td><?= formatData($h['data']) ?></td>
+                            <td><?= sanitize($h['descricao']) ?></td>
+                            <td>
+                                <span class="badge bg-light text-dark border">
+                                    <?= number_format((float)$h['quantidade'], 1, ',', '') ?>h
+                                </span>
+                            </td>
+                            <td>
+                                <form method="post" action="<?= BASE_PATH ?>/horas/excluir.php"
+                                      onsubmit="return confirm('Excluir?')">
+                                    <input type="hidden" name="csrf_token" value="<?= csrfToken() ?>">
+                                    <input type="hidden" name="id" value="<?= $h['id'] ?>">
+                                    <input type="hidden" name="projeto_id" value="<?= $id ?>">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                        <?php if (empty($horas_lista)): ?>
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-3">Nenhuma hora registrada.</td>
+                        </tr>
+                        <?php endif; ?>
+                    </tbody>
+                    <?php if (!empty($horas_lista)): ?>
+                    <tfoot class="table-light fw-bold">
+                        <tr>
+                            <td colspan="2" class="text-end">Total:</td>
+                            <td colspan="2"><?= number_format($total_horas, 1, ',', '') ?> horas</td>
+                        </tr>
+                    </tfoot>
+                    <?php endif; ?>
+                </table>
             </div>
         </div>
     </div>

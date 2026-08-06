@@ -18,6 +18,15 @@ $projetos = $pdo->query("
 
 $tarefas_pendentes = $pdo->query("SELECT COUNT(*) FROM tarefas WHERE status != 'concluida'")->fetchColumn();
 
+$tarefas_vencidas = $pdo->query("
+    SELECT t.*, p.nome AS projeto_nome, p.id AS projeto_id
+    FROM tarefas t
+    JOIN projetos p ON p.id = t.projeto_id
+    WHERE t.data_prazo < CURDATE() AND t.status != 'concluida'
+    ORDER BY t.data_prazo ASC
+    LIMIT 8
+")->fetchAll();
+
 include __DIR__ . '/includes/header.php';
 ?>
 <div class="row g-3 mb-4">
@@ -77,6 +86,36 @@ include __DIR__ . '/includes/header.php';
         </div>
     </div>
 </div>
+
+<?php if (!empty($tarefas_vencidas)): ?>
+<div class="card border-danger mb-4">
+    <div class="card-header text-danger d-flex justify-content-between align-items-center">
+        <span><i class="fas fa-exclamation-triangle me-2"></i>Tarefas com prazo vencido (<?= count($tarefas_vencidas) ?>)</span>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr><th>Tarefa</th><th>Projeto</th><th>Prazo</th><th>Prioridade</th><th></th></tr>
+            </thead>
+            <tbody>
+                <?php foreach ($tarefas_vencidas as $tv): ?>
+                <tr>
+                    <td><?= sanitize($tv['titulo']) ?></td>
+                    <td><?= sanitize($tv['projeto_nome']) ?></td>
+                    <td class="text-danger fw-semibold"><?= formatData($tv['data_prazo']) ?></td>
+                    <td><?= prioridadeLabel($tv['prioridade']) ?></td>
+                    <td>
+                        <a href="<?= BASE_PATH ?>/projetos/ver.php?id=<?= $tv['projeto_id'] ?>" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<?php endif; ?>
 
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
