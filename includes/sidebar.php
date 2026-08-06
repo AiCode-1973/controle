@@ -22,6 +22,9 @@
         <a href="<?= BASE_PATH ?>/prompts/index.php" class="sidebar-link <?= $menu_ativo === 'prompts' ? 'active' : '' ?>">
             <i class="fas fa-robot"></i> Prompts
         </a>
+        <a href="<?= BASE_PATH ?>/links/index.php" class="sidebar-link <?= $menu_ativo === 'links' ? 'active' : '' ?>">
+            <i class="fas fa-bookmark"></i> Meus Links
+        </a>
 
         <div class="sidebar-separator"></div>
         <div class="sidebar-section-label">Configurações</div>
