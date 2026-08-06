@@ -1,0 +1,87 @@
+/* ========== Layout ========== */
+#wrapper {
+    min-height: 100vh;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    width: 230px;
+    min-width: 230px;
+    transition: margin 0.25s ease-out;
+    flex-shrink: 0;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: -230px;
+}
+
+#page-content-wrapper {
+    min-width: 0;
+    flex: 1;
+}
+
+/* ========== Sidebar ========== */
+.sidebar-heading {
+    font-size: 0.88rem;
+    letter-spacing: 0.4px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.65rem 1.25rem;
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: background 0.15s, color 0.15s;
+}
+
+.sidebar-link i {
+    width: 16px;
+    text-align: center;
+}
+
+.sidebar-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.sidebar-link.active {
+    background: #0d6efd;
+    color: #fff;
+}
+
+/* ========== Cards & Tables ========== */
+.card {
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.card-header {
+    background: #fff;
+    border-bottom: 1px solid #e9ecef;
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.75rem 1rem;
+}
+
+.table th {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: #6c757d;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: -230px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: 0;
+    }
+}
