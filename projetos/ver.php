@@ -241,9 +241,16 @@ include __DIR__ . '/../includes/header.php';
                             <input type="hidden" name="csrf_token" value="<?= csrfToken() ?>">
                             <input type="hidden" name="id" value="<?= $t['id'] ?>">
                             <input type="hidden" name="projeto_id" value="<?= $id ?>">
-                            <button type="submit" class="btn btn-sm btn-outline-danger">
-                                <i class="fas fa-times"></i>
-                            </button>
+                            <div class="d-flex gap-1">
+                                <button type="button" class="btn btn-sm btn-outline-secondary"
+                                        title="Editar tarefa"
+                                        onclick="editarTarefa(<?= $t['id'] ?>, '<?= addslashes(sanitize($t['titulo'])) ?>', '<?= addslashes(sanitize($t['descricao'] ?? '')) ?>', '<?= $t['status'] ?>', '<?= $t['prioridade'] ?>', '<?= $t['data_prazo'] ?? '' ?>', <?= $id ?>)">
+                                    <i class="fas fa-pen"></i>
+                                </button>
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -435,5 +442,72 @@ include __DIR__ . '/../includes/header.php';
         </div>
     </div>
 </div>
+
+<!-- Modal editar tarefa -->
+<div class="modal fade" id="modalEditarTarefa" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="<?= BASE_PATH ?>/tarefas/editar.php">
+                <input type="hidden" name="csrf_token" value="<?= csrfToken() ?>">
+                <input type="hidden" name="id" id="edit_id">
+                <input type="hidden" name="projeto_id" value="<?= $id ?>">
+                <div class="modal-header">
+                    <h6 class="modal-title"><i class="fas fa-pen me-2"></i>Editar tarefa</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Título <span class="text-danger">*</span></label>
+                        <input type="text" name="titulo" id="edit_titulo" class="form-control" required>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Status</label>
+                            <select name="status" id="edit_status" class="form-select">
+                                <option value="pendente">Pendente</option>
+                                <option value="em_andamento">Em andamento</option>
+                                <option value="concluida">Concluída</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Prioridade</label>
+                            <select name="prioridade" id="edit_prioridade" class="form-select">
+                                <option value="baixa">Baixa</option>
+                                <option value="media">Média</option>
+                                <option value="alta">Alta</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Prazo</label>
+                            <input type="date" name="data_prazo" id="edit_data_prazo" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-1">
+                        <label class="form-label">Descrição</label>
+                        <textarea name="descricao" id="edit_descricao" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fas fa-save me-1"></i>Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function editarTarefa(id, titulo, descricao, status, prioridade, data_prazo, projeto_id) {
+    document.getElementById('edit_id').value          = id;
+    document.getElementById('edit_titulo').value      = titulo;
+    document.getElementById('edit_descricao').value   = descricao;
+    document.getElementById('edit_status').value      = status;
+    document.getElementById('edit_prioridade').value  = prioridade;
+    document.getElementById('edit_data_prazo').value  = data_prazo;
+    new bootstrap.Modal(document.getElementById('modalEditarTarefa')).show();
+}
+</script>
 
 <?php include __DIR__ . '/../includes/footer.php'; ?>
