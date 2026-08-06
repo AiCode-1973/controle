@@ -465,7 +465,7 @@ input, textarea, select, pre, code, [contenteditable], .font-monospace { -webkit
 
 /* Watermark */
 #wm { position:fixed; top:-10%; left:-10%; width:120%; height:120%; pointer-events:none; z-index:9999; transform:rotate(-30deg); overflow:hidden; display:flex; flex-direction:column; gap:70px; }
-.wm-row { display:flex; gap:120px; white-space:nowrap; font-size:.9rem; font-weight:700; color:rgba(0,0,0,.045); letter-spacing:1px; text-transform:uppercase; }
+.wm-row { display:flex; gap:120px; white-space:nowrap; font-size:.9rem; font-weight:700; color:rgba(0,0,0,.012); letter-spacing:1px; text-transform:uppercase; }
 
 /* Responsive */
 @media (max-width:768px) {
