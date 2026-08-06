@@ -140,7 +140,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 3rem 4rem;
+            align-items: center;
+            padding: 3rem 2rem;
             background: #fff;
         }
 
@@ -260,9 +261,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1>Controle total dos seus projetos de sistemas</h1>
 
             <p>
-                Gerencie clientes, projetos, tarefas e finanças em um único lugar.
-                Acompanhe o progresso, registre horas trabalhadas e gere relatórios
-                de forma rápida e eficiente.
+                
             </p>
 
             <ul class="feature-list">
@@ -304,7 +303,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h2 class="login-title">Bem-vindo de volta</h2>
         <p class="login-subtitle">Acesse sua conta para gerenciar seus projetos</p>
 
-        <div style="max-width:360px;width:100%">
+        <div style="max-width:360px;width:100%;text-align:left">
 
         <?php if ($erro): ?>
             <div class="alert alert-danger d-flex align-items-center gap-2 py-2 mb-3" style="border-radius:10px;font-size:.875rem">
