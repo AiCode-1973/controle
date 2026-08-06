@@ -250,7 +250,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <div class="login-wrapper">
 
-    <!-- Painel esquerdo: formulário -->
+    <!-- Painel esquerdo: apresentação -->
+    <div class="login-panel-right">
+        <div class="right-content">
+            <div class="right-logo">
+                <i class="fas fa-layer-group"></i>
+            </div>
+
+            <h1>Controle total dos seus projetos de sistemas</h1>
+
+            <p>
+                Gerencie clientes, projetos, tarefas e finanças em um único lugar.
+                Acompanhe o progresso, registre horas trabalhadas e gere relatórios
+                de forma rápida e eficiente.
+            </p>
+
+            <ul class="feature-list">
+                <li>
+                    <i class="fas fa-project-diagram"></i>
+                    Gestão completa de projetos e clientes
+                </li>
+                <li>
+                    <i class="fas fa-tasks"></i>
+                    Controle de tarefas com prioridade e prazos
+                </li>
+                <li>
+                    <i class="fas fa-dollar-sign"></i>
+                    Acompanhamento financeiro por projeto
+                </li>
+                <li>
+                    <i class="fas fa-clock"></i>
+                    Registro de horas trabalhadas
+                </li>
+                <li>
+                    <i class="fas fa-file-alt"></i>
+                    Relatórios detalhados com exportação para PDF
+                </li>
+                <li>
+                    <i class="fas fa-bell"></i>
+                    Alertas automáticos de prazos vencidos
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Painel direito: formulário -->
     <div class="login-panel-left">
         <div class="login-brand">
             <div class="login-brand-icon"><i class="fas fa-code"></i></div>
@@ -295,50 +339,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="login-footer">
             &copy; <?= date('Y') ?> <?= APP_NAME ?> &mdash; Todos os direitos reservados
-        </div>
-    </div>
-
-    <!-- Painel direito: apresentação -->
-    <div class="login-panel-right">
-        <div class="right-content">
-            <div class="right-logo">
-                <i class="fas fa-layer-group"></i>
-            </div>
-
-            <h1>Controle total dos seus projetos de sistemas</h1>
-
-            <p>
-                Gerencie clientes, projetos, tarefas e finanças em um único lugar.
-                Acompanhe o progresso, registre horas trabalhadas e gere relatórios
-                de forma rápida e eficiente.
-            </p>
-
-            <ul class="feature-list">
-                <li>
-                    <i class="fas fa-project-diagram"></i>
-                    Gestão completa de projetos e clientes
-                </li>
-                <li>
-                    <i class="fas fa-tasks"></i>
-                    Controle de tarefas com prioridade e prazos
-                </li>
-                <li>
-                    <i class="fas fa-dollar-sign"></i>
-                    Acompanhamento financeiro por projeto
-                </li>
-                <li>
-                    <i class="fas fa-clock"></i>
-                    Registro de horas trabalhadas
-                </li>
-                <li>
-                    <i class="fas fa-file-alt"></i>
-                    Relatórios detalhados com exportação para PDF
-                </li>
-                <li>
-                    <i class="fas fa-bell"></i>
-                    Alertas automáticos de prazos vencidos
-                </li>
-            </ul>
         </div>
     </div>
 
