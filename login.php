@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         /* ── Painel esquerdo (formulário) ── */
         .login-panel-left {
-            width: 460px;
+            width: 560px;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
