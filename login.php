@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 3rem 3rem;
+            padding: 3rem 4rem;
             background: #fff;
         }
 
@@ -148,49 +148,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
         }
 
         .login-brand-icon {
-            width: 40px; height: 40px;
+            width: 34px; height: 34px;
             background: #0d6efd;
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex; align-items: center; justify-content: center;
             color: #fff;
-            font-size: 1rem;
+            font-size: 0.85rem;
         }
 
         .login-brand span {
             font-weight: 700;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             color: #212529;
         }
 
         .login-title {
-            font-size: 1.6rem;
+            font-size: 1.35rem;
             font-weight: 700;
             color: #212529;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;
         }
 
         .login-subtitle {
             color: #6c757d;
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
+            font-size: 0.82rem;
+            margin-bottom: 1.75rem;
         }
 
         .form-label {
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             color: #495057;
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.3rem;
         }
 
         .form-control {
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1.5px solid #dee2e6;
-            padding: 0.65rem 1rem;
-            font-size: 0.9rem;
+            padding: 0.5rem 0.85rem;
+            font-size: 0.85rem;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
 
@@ -205,25 +205,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .input-group-icon i {
             position: absolute;
-            left: 0.9rem;
+            left: 0.8rem;
             top: 50%;
             transform: translateY(-50%);
             color: #adb5bd;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             z-index: 5;
         }
 
         .input-group-icon .form-control {
-            padding-left: 2.5rem;
+            padding-left: 2.2rem;
         }
 
         .btn-login {
             background: linear-gradient(135deg, #0d6efd, #0a3d8f);
             border: none;
-            border-radius: 10px;
-            padding: 0.7rem;
+            border-radius: 8px;
+            padding: 0.55rem;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.875rem;
             letter-spacing: 0.3px;
             transition: opacity 0.2s, transform 0.1s;
         }
@@ -232,12 +232,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .btn-login:active { transform: translateY(0); }
 
         .login-footer {
-            margin-top: 2.5rem;
-            padding-top: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 1.25rem;
             border-top: 1px solid #f0f0f0;
             text-align: center;
             color: #adb5bd;
-            font-size: 0.78rem;
+            font-size: 0.72rem;
         }
 
         /* ── Responsivo ── */
@@ -304,6 +304,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h2 class="login-title">Bem-vindo de volta</h2>
         <p class="login-subtitle">Acesse sua conta para gerenciar seus projetos</p>
 
+        <div style="max-width:360px;width:100%">
+
         <?php if ($erro): ?>
             <div class="alert alert-danger d-flex align-items-center gap-2 py-2 mb-3" style="border-radius:10px;font-size:.875rem">
                 <i class="fas fa-exclamation-circle"></i>
@@ -323,7 +325,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
 
-            <div class="mb-4">
+            <div class="mb-3">
                 <label class="form-label">Senha</label>
                 <div class="input-group-icon">
                     <i class="fas fa-lock"></i>
@@ -332,7 +334,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-login btn-primary w-100 text-white">
+            <button type="submit" class="btn btn-login btn-primary w-100 text-white mt-1">
                 Entrar <i class="fas fa-arrow-right ms-1"></i>
             </button>
         </form>
@@ -340,6 +342,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="login-footer">
             &copy; <?= date('Y') ?> <?= APP_NAME ?> &mdash; Todos os direitos reservados
         </div>
+        </div><!-- max-width wrapper -->
     </div>
 
 </div>
